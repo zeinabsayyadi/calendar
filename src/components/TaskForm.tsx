@@ -30,12 +30,18 @@ interface reminderPropsList {
 }
 const TaskForm: FC<taskprops> = ({ taskDate, setIsModalOpen }) => {
   const [form] = Form.useForm();
-  const setReminderList =
-    useSetRecoilState(reminderListState);
+  const setReminderList = useSetRecoilState(reminderListState);
   const onFinish = (values: any) => {
     console.log(values);
     //set values and date to recoil and reset form
-    setReminderList((oldReminderList) => [...oldReminderList,{}]);
+    setReminderList((oldReminderList) => [
+      ...oldReminderList,
+      {
+        date: taskDate,
+        taskType: values.reminderType,
+        content: values.reminder,
+      },
+    ]);
     setIsModalOpen(false);
   };
 
@@ -62,24 +68,6 @@ const TaskForm: FC<taskprops> = ({ taskDate, setIsModalOpen }) => {
           <Option value="other">other</Option>
         </Select>
       </Form.Item>
-      {/* <Form.Item
-        noStyle
-        shouldUpdate={(prevValues, currentValues) =>
-          prevValues.gender !== currentValues.gender
-        }
-      >
-        {({ getFieldValue }) =>
-          getFieldValue("taskType") === "other" ? (
-            <Form.Item
-              name="customizeGender"
-              label="Customize Gender"
-              rules={[{ required: true }]}
-            >
-              <Input />
-            </Form.Item>
-          ) : null
-        }
-      </Form.Item> */}
       <Form.Item
         name="reminder"
         label="reminder"

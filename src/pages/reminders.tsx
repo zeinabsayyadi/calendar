@@ -13,31 +13,34 @@ const Reminders: FC = () => {
   const remindersList = useRecoilValue(reminderListState);
   //const {} = useQuery(["reminderUK"]);
   return (
-    <Row gutter={16}>
-      {remindersList?.map((reminder: reminderProps) => (
-        <Col span={8}>
-          <Card
-            title={reminder?.date.format("DD/MM/YYYY")}
-            bordered={false}
-          >
-            <Row>
-              <Col
-                span={18}
-                push={6}
-              >
-                {reminder?.taskType}
-              </Col>
-              <Col
-                span={6}
-                pull={18}
-              >
-                {reminder?.content}
-              </Col>
-            </Row>
-          </Card>
-        </Col>
-      ))}
-    </Row>
+    <div>
+      <h1>reminders</h1>
+      <Row gutter={16}>
+        {remindersList?.map((reminder: reminderProps) => (
+          <Col span={8}>
+            <Card
+              title={reminder?.date.format("DD/MM/YYYY")}
+              bordered={false}
+            >
+              <Row>
+                <Col
+                  span={18}
+                  push={6}
+                >
+                  {reminder?.taskType}
+                </Col>
+                <Col
+                  span={6}
+                  pull={18}
+                >
+                  {reminder?.content}
+                </Col>
+              </Row>
+            </Card>
+          </Col>
+        ))}
+      </Row>
+    </div>
   );
 };
 
