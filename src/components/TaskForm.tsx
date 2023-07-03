@@ -14,13 +14,14 @@ const tailLayout = {
 
 interface taskprops {
   taskDate: Dayjs;
+  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
-const TaskForm: FC<taskprops> = ({ taskDate }) => {
+const TaskForm: FC<taskprops> = ({ taskDate, setIsModalOpen }) => {
   const [form] = Form.useForm();
 
-  const onGenderChange = (value: string) => {
+  const onTaskTypeChange = (value: string) => {
     switch (value) {
-      case "male":
+      case "meeting":
         form.setFieldsValue({ note: "Hi, man!" });
         break;
       case "female":
@@ -35,15 +36,10 @@ const TaskForm: FC<taskprops> = ({ taskDate }) => {
 
   const onFinish = (values: any) => {
     console.log(values);
+    //set values and date to recoil and reset form
+    setIsModalOpen(false);
   };
 
-  const onReset = () => {
-    form.resetFields();
-  };
-
-  const onFill = () => {
-    form.setFieldsValue({ note: "Hello world!", gender: "male" });
-  };
   return (
     <Form
       {...layout}
@@ -53,20 +49,13 @@ const TaskForm: FC<taskprops> = ({ taskDate }) => {
       style={{ maxWidth: 600 }}
     >
       <Form.Item
-        name="note"
-        label="Note"
-        rules={[{ required: true }]}
-      >
-        <Input />
-      </Form.Item>
-      <Form.Item
-        name="gender"
-        label="Gender"
+        name="taskType"
+        label="task type"
         rules={[{ required: true }]}
       >
         <Select
-          placeholder="Select a option and change input text above"
-          onChange={onGenderChange}
+          placeholder="Select type of task"
+          onChange={onTaskTypeChange}
           allowClear
         >
           <Option value="meeting">meeting</Option>
@@ -74,14 +63,14 @@ const TaskForm: FC<taskprops> = ({ taskDate }) => {
           <Option value="other">other</Option>
         </Select>
       </Form.Item>
-      <Form.Item
+      {/* <Form.Item
         noStyle
         shouldUpdate={(prevValues, currentValues) =>
           prevValues.gender !== currentValues.gender
         }
       >
         {({ getFieldValue }) =>
-          getFieldValue("gender") === "other" ? (
+          getFieldValue("taskType") === "other" ? (
             <Form.Item
               name="customizeGender"
               label="Customize Gender"
@@ -91,6 +80,13 @@ const TaskForm: FC<taskprops> = ({ taskDate }) => {
             </Form.Item>
           ) : null
         }
+      </Form.Item> */}
+      <Form.Item
+        name="task"
+        label="task"
+        rules={[{ required: true }]}
+      >
+        <Input />
       </Form.Item>
       <Form.Item {...tailLayout}>
         <Button
@@ -98,19 +94,6 @@ const TaskForm: FC<taskprops> = ({ taskDate }) => {
           htmlType="submit"
         >
           Submit
-        </Button>
-        <Button
-          htmlType="button"
-          onClick={onReset}
-        >
-          Reset
-        </Button>
-        <Button
-          type="link"
-          htmlType="button"
-          onClick={onFill}
-        >
-          Fill form
         </Button>
       </Form.Item>
     </Form>
