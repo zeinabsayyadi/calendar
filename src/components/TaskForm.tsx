@@ -19,21 +19,6 @@ interface taskprops {
 const TaskForm: FC<taskprops> = ({ taskDate, setIsModalOpen }) => {
   const [form] = Form.useForm();
 
-  const onTaskTypeChange = (value: string) => {
-    switch (value) {
-      case "meeting":
-        form.setFieldsValue({ note: "Hi, man!" });
-        break;
-      case "female":
-        form.setFieldsValue({ note: "Hi, lady!" });
-        break;
-      case "other":
-        form.setFieldsValue({ note: "Hi there!" });
-        break;
-      default:
-    }
-  };
-
   const onFinish = (values: any) => {
     console.log(values);
     //set values and date to recoil and reset form
@@ -55,7 +40,6 @@ const TaskForm: FC<taskprops> = ({ taskDate, setIsModalOpen }) => {
       >
         <Select
           placeholder="Select type of task"
-          onChange={onTaskTypeChange}
           allowClear
         >
           <Option value="meeting">meeting</Option>
