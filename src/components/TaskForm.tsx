@@ -1,6 +1,8 @@
 import { Button, Form, Input, Select } from "antd";
 import React, { FC } from "react";
-import { Dayjs } from "dayjs";
+import type { Dayjs } from "dayjs";
+import { useSetRecoilState } from "recoil";
+import { reminderListState } from "@/recoil/recoil_state";
 const { Option } = Select;
 
 const layout = {
@@ -16,12 +18,24 @@ interface taskprops {
   taskDate: Dayjs;
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
+interface reminderProps {
+  date: Dayjs;
+  taskType: string;
+  content: string;
+}
+
+interface reminderPropsList {
+  key: string;
+  defult: Array<reminderProps>;
+}
 const TaskForm: FC<taskprops> = ({ taskDate, setIsModalOpen }) => {
   const [form] = Form.useForm();
-
+  const setReminderList =
+    useSetRecoilState(reminderListState);
   const onFinish = (values: any) => {
     console.log(values);
     //set values and date to recoil and reset form
+    setReminderList((oldReminderList) => [...oldReminderList,{}]);
     setIsModalOpen(false);
   };
 
@@ -34,16 +48,17 @@ const TaskForm: FC<taskprops> = ({ taskDate, setIsModalOpen }) => {
       style={{ maxWidth: 600 }}
     >
       <Form.Item
-        name="taskType"
-        label="task type"
+        name="reminderType"
+        label="reminder type"
         rules={[{ required: true }]}
       >
         <Select
-          placeholder="Select type of task"
+          placeholder="Select type of reminder"
           allowClear
         >
           <Option value="meeting">meeting</Option>
           <Option value="event">event</Option>
+          <Option value="todo">todo task</Option>
           <Option value="other">other</Option>
         </Select>
       </Form.Item>
@@ -66,8 +81,8 @@ const TaskForm: FC<taskprops> = ({ taskDate, setIsModalOpen }) => {
         }
       </Form.Item> */}
       <Form.Item
-        name="task"
-        label="task"
+        name="reminder"
+        label="reminder"
         rules={[{ required: true }]}
       >
         <Input />
