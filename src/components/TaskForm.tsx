@@ -1,6 +1,6 @@
 import { Button, Form, Input, Select } from "antd";
 import React, { FC } from "react";
-
+import { Dayjs } from "dayjs";
 const { Option } = Select;
 
 const layout = {
@@ -12,8 +12,10 @@ const tailLayout = {
   wrapperCol: { offset: 8, span: 16 },
 };
 
-
-const TaskForm: FC = () => {
+interface taskprops {
+  taskDate: Dayjs;
+}
+const TaskForm: FC<taskprops> = ({ taskDate }) => {
   const [form] = Form.useForm();
 
   const onGenderChange = (value: string) => {
@@ -67,8 +69,8 @@ const TaskForm: FC = () => {
           onChange={onGenderChange}
           allowClear
         >
-          <Option value="male">male</Option>
-          <Option value="female">female</Option>
+          <Option value="meeting">meeting</Option>
+          <Option value="event">event</Option>
           <Option value="other">other</Option>
         </Select>
       </Form.Item>

@@ -1,10 +1,11 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import type { BadgeProps } from "antd";
-import { Badge, Calendar } from "antd";
-import type { Dayjs } from "dayjs";
+import { Badge, Calendar, Modal } from "antd";
+import { Dayjs } from "dayjs";
+import { default as dayjs } from "dayjs";
 import type { CellRenderInfo } from "rc-picker/lib/interface";
-
-
+import type { CalendarMode } from "antd/es/calendar/generateCalendar";
+import TaskForm from "./TaskForm";
 
 const getListData = (value: Dayjs) => {
   let listData;
@@ -43,8 +44,29 @@ const getMonthData = (value: Dayjs) => {
   }
 };
 
-
 const CustomCalendar: FC = () => {
+  const [open, setOpen] = useState(false);
+  const [taskDate, setTaskDate] = useState<Dayjs>(dayjs("2010-01-01"));
+  const [confirmLoading, setConfirmLoading] = useState(false);
+  const onPanelChange = (value: Dayjs, mode: CalendarMode) => {
+    console.log(value.format("YYYY-MM-DD"), mode);
+    setTaskDate(value);
+    setOpen(true);
+  };
+
+  const handleOk = () => {
+    setConfirmLoading(true);
+    setTimeout(() => {
+      setOpen(false);
+      setConfirmLoading(false);
+    }, 2000);
+  };
+
+  const handleCancel = () => {
+    console.log("Clicked cancel button");
+    setOpen(false);
+  };
+
   const monthCellRender = (value: Dayjs) => {
     const num = getMonthData(value);
     return num ? (
@@ -77,7 +99,25 @@ const CustomCalendar: FC = () => {
     return info.originNode;
   };
 
-  return <Calendar cellRender={cellRender} />;
+  return (
+    <div>
+      <Calendar
+        cellRender={cellRender}
+        onPanelChange={onPanelChange}
+      />
+      <Modal
+        title="Title"
+        open={open}
+        onOk={handleOk}
+        confirmLoading={confirmLoading}
+        onCancel={handleCancel}
+      >
+        <p>
+          <TaskForm taskDate={taskDate} />
+        </p>
+      </Modal>
+    </div>
+  );
 };
 
 export default CustomCalendar;
