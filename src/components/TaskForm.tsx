@@ -44,9 +44,9 @@ const TaskForm: FC<taskprops> = ({ taskDate, setIsModalOpen }) => {
     ]);
     setIsModalOpen(false);
   };
-  useEffect(() => {
-    console.log(reminderList);
-  }, [reminderList]);
+  // useEffect(() => {
+  //   console.log(reminderList);
+  // }, [reminderList]);
   return (
     <Form
       {...layout}
@@ -80,7 +80,7 @@ const TaskForm: FC<taskprops> = ({ taskDate, setIsModalOpen }) => {
       <Form.Item {...tailLayout}>
         <Button
           htmlType="submit"
-          className="bg-fuchsia-500 hover:bg-fuchsia-700 text-white hover:text-white"
+          className="custom-button-hover border-0 bg-blue-500 text-white hover:text-white"
         >
           Submit
         </Button>

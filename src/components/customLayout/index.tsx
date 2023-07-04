@@ -80,7 +80,7 @@ const CustomLayout: FC<MyProps> = ({ children }) => {
         </Menu>
       </Sider>
       <Layout
-        className="site-layout bg-violet-950"
+        className="site-layout bg-blue-950"
         style={{ marginLeft: 200 }}
       >
         <Content

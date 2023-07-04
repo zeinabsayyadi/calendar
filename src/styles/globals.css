@@ -23,5 +23,16 @@ body {
       transparent,
       rgb(46 16 101 / var(--tw-bg-opacity))
     )
-   rgb(46 16 101 / var(--tw-bg-opacity));
+    rgb(46 16 101 / var(--tw-bg-opacity));
+}
+
+.ant-btn.custom-button-hover:hover {
+  /*.ant-btn only needed if .ant-btn:hover specified elsewhere*/
+  background-color: rgb(37 99 235);
+  border: 0px;
+}
+
+.ant-btn:hover {
+  color: initial;
+  border: 0px;
 }
