@@ -1,4 +1,4 @@
-import { Card, Col, Row } from "antd";
+import { Card, Col, Row, Typography } from "antd";
 import { FC } from "react";
 import type { Dayjs } from "dayjs";
 import { useRecoilValue } from "recoil";
@@ -13,8 +13,8 @@ const Reminders: FC = () => {
   const remindersList = useRecoilValue(reminderListState);
   //const {} = useQuery(["reminderUK"]);
   return (
-    <div>
-      <h1>reminders</h1>
+    <>
+      <Typography>reminder</Typography>
       <Row gutter={16}>
         {remindersList?.map((reminder: reminderProps) => (
           <Col span={8}>
@@ -40,7 +40,7 @@ const Reminders: FC = () => {
           </Col>
         ))}
       </Row>
-    </div>
+    </>
   );
 };
 
