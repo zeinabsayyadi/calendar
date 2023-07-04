@@ -1,7 +1,7 @@
 import { Button, Form, Input, Select } from "antd";
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import type { Dayjs } from "dayjs";
-import { useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { reminderListState } from "@/recoil/recoil_state";
 const { Option } = Select;
 
@@ -30,7 +30,7 @@ interface reminderPropsList {
 }
 const TaskForm: FC<taskprops> = ({ taskDate, setIsModalOpen }) => {
   const [form] = Form.useForm();
-  const setReminderList = useSetRecoilState(reminderListState);
+  const [reminderList, setReminderList] = useRecoilState(reminderListState);
   const onFinish = (values: any) => {
     console.log(values);
     //set values and date to recoil and reset form
@@ -38,13 +38,15 @@ const TaskForm: FC<taskprops> = ({ taskDate, setIsModalOpen }) => {
       ...oldReminderList,
       {
         date: taskDate,
-        taskType: values.reminderType,
-        content: values.reminder,
+        taskType: values?.reminderType,
+        content: values?.reminder,
       },
     ]);
     setIsModalOpen(false);
   };
-
+  useEffect(() => {
+    console.log(reminderList);
+  }, [reminderList]);
   return (
     <Form
       {...layout}
@@ -77,8 +79,8 @@ const TaskForm: FC<taskprops> = ({ taskDate, setIsModalOpen }) => {
       </Form.Item>
       <Form.Item {...tailLayout}>
         <Button
-          type="primary"
           htmlType="submit"
+          className="bg-fuchsia-500 hover:bg-fuchsia-700 text-white hover:text-white"
         >
           Submit
         </Button>

@@ -1,7 +1,7 @@
 import { Card, Col, Row, Typography } from "antd";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import type { Dayjs } from "dayjs";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { reminderListState } from "@/recoil/recoil_state";
 
 interface reminderProps {
@@ -10,37 +10,59 @@ interface reminderProps {
   content: string;
 }
 const Reminders: FC = () => {
-  const remindersList = useRecoilValue(reminderListState);
+  const [remindersList, setReminderList] = useRecoilState(reminderListState);
   //const {} = useQuery(["reminderUK"]);
+  useEffect(() => {
+    console.log(remindersList);
+  }, []);
   return (
-    <>
+    <div className="flex justify-center flex-col">
       <Typography>reminder</Typography>
-      <Row gutter={16}>
+      <Row
+        gutter={[16, 16]}
+      >
         {remindersList?.map((reminder: reminderProps) => (
           <Col span={8}>
             <Card
-              title={reminder?.date.format("DD/MM/YYYY")}
+              style={{
+                width: "300px",
+                height: "300px",
+                margin: "2rem",
+              }}
+              className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"
+              title={
+                <Row gutter={8}>
+                  <Col span={12}>
+                    <Typography className="text-white italic">
+                      {reminder?.date.format("DD/MM/YYYY")}
+                    </Typography>
+                  </Col>
+                  <Col span={12}>
+                    <Typography className="text-white italic">
+                      {reminder?.date.format("h:mm A")}
+                    </Typography>
+                  </Col>
+                </Row>
+              }
               bordered={false}
             >
-              <Row>
-                <Col
-                  span={18}
-                  push={6}
-                >
-                  {reminder?.taskType}
+              <Row gutter={[8, 8]}>
+                <Col span={24}>
+                  <Typography className="text-white">
+                    {reminder.taskType}
+                  </Typography>
                 </Col>
-                <Col
-                  span={6}
-                  pull={18}
-                >
-                  {reminder?.content}
+                <Col span={24}>
+                  <Typography className="text-white">
+                    {reminder.content}
+                  </Typography>
                 </Col>
               </Row>
             </Card>
           </Col>
         ))}
       </Row>
-    </>
+    </div>
   );
 };
 

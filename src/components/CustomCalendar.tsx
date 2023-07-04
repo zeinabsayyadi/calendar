@@ -10,15 +10,12 @@ const CustomCalendar: FC = () => {
   const [selectedValue, setSelectedValue] = useState(() => dayjs("2017-01-25"));
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
-
   const handleCancel = () => {
     setIsModalOpen(false);
   };
 
   const onSelect = (newValue: Dayjs) => {
+   if(newValue.format('dd/mm/yy'))
     setValue(newValue);
     setSelectedValue(newValue);
     setIsModalOpen(true);
@@ -30,17 +27,16 @@ const CustomCalendar: FC = () => {
 
   return (
     <>
-    
       <Calendar
         value={value}
         onSelect={onSelect}
         onPanelChange={onPanelChange}
+        fullscreen={false}
       />
       <Modal
-        title="Basic Modal"
+        title="add new reminder"
         open={isModalOpen}
-        //onOk={handleOk}
-        //onCancel={handleCancel}
+        onCancel={handleCancel}
         footer={null}
       >
         <TaskForm

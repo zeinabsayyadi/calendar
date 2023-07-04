@@ -80,23 +80,15 @@ const CustomLayout: FC<MyProps> = ({ children }) => {
         </Menu>
       </Sider>
       <Layout
-        className="site-layout"
+        className="site-layout bg-violet-950"
         style={{ marginLeft: 200 }}
       >
-        <Content style={{ overflow: "initial" }}>
-          <div
-            style={{
-              padding: "1rem",
-              textAlign: "center",
-              background: colorBgContainer,
-            }}
-          >
-            {children}
-          </div>
+        <Content
+          style={{ overflow: "hidden" }}
+          className="h-screen m-0"
+        >
+          {children}
         </Content>
-        <Footer style={{ textAlign: "center" }}>
-          Ant Design ©2023 Created by Ant UED
-        </Footer>
       </Layout>
     </Layout>
   );

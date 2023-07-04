@@ -21,7 +21,7 @@ body {
   background: linear-gradient(
       to bottom,
       transparent,
-      rgb(var(--background-end-rgb))
+      rgb(46 16 101 / var(--tw-bg-opacity))
     )
-    rgb(var(--background-start-rgb));
+   rgb(46 16 101 / var(--tw-bg-opacity));
 }
